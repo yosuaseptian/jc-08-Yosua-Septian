@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
+import {connect} from 'react-redux'
 
 import PlaceInput from './src/components/PlaceInput/PlaceInput';
 import PlaceList from './src/components/PlaceList/PlaceList';
 import PlaceDetail from './src/components/PlaceDetail/PlaceDetail'
 
-export default class App extends Component{
+import { addPlace, deletePlace } from './src/store/actions/index'
+
+class App extends Component{
   state = {
     places: [],
     selectedPlace: null
@@ -15,19 +18,9 @@ export default class App extends Component{
     if(placeName.trim() === ""){ // "   Alvin    " "Alvin" || "      " ""
       return // berhenti
     }
-
-    // setState diberikan function, property yg masuk adalah data state sebelumnya
-    this.setState(prevState => {
-      return {
-        places: prevState.places.concat({
-          key: Math.random().toString(),
-          value: placeName,
-          image: {
-            uri: 'https://res.cloudinary.com/teepublic/image/private/s--ZuSXviSZ--/t_Preview/b_rgb:191919,c_limit,f_jpg,h_630,q_90,w_630/v1519368586/production/designs/2388108_0.jpg'
-          }
-        })
-      }
-    })
+    console.log(placeName);
+    
+    this.props.onAddPlace(placeName)
   }
 
   placeSelectedHandler = (key) => {
@@ -66,9 +59,9 @@ export default class App extends Component{
           onDeletedItem = {this.placeDeletedHandler}
           selectedPlace = {this.state.selectedPlace}
         />
-        <PlaceInput onSubmitHandler = {this.placeSubmitHandler}/>
+        <PlaceInput onAddPlace = {this.placeSubmitHandler}/>
         <PlaceList 
-          places = {this.state.places}
+          places = {this.props.places}
           onItemSelected = {this.placeSelectedHandler}
         />
       </View>
@@ -86,3 +79,17 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapStateToProps = state => {
+  return {
+    places: state.places.places,
+    selectedPlace: state.places.selectedPlace
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddPlace : (name) => dispatch(addPlace(name))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps )(App)
