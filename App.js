@@ -6,7 +6,7 @@ import PlaceInput from './src/components/PlaceInput/PlaceInput';
 import PlaceList from './src/components/PlaceList/PlaceList';
 import PlaceDetail from './src/components/PlaceDetail/PlaceDetail'
 
-import { addPlace, deletePlace } from './src/store/actions/index'
+import { addPlace, deletePlace, selectPlace, deselectPlace } from './src/store/actions/index'
 
 class App extends Component{
   state = {
@@ -18,36 +18,19 @@ class App extends Component{
     if(placeName.trim() === ""){ // "   Alvin    " "Alvin" || "      " ""
       return // berhenti
     }
-    console.log(placeName);
-    
     this.props.onAddPlace(placeName)
   }
 
   placeSelectedHandler = (key) => {
-    this.setState (prevState => {
-      return {
-        selectedPlace: prevState.places.find(place => {
-            return place.key === key
-        })
-      }
-    })
+    this.props.onSelectPlace(key)
   }
 
   placeDeletedHandler = () => {
-    this.setState(prevState => {
-      return{
-        places: prevState.places.filter(place => {
-            return place.key !== prevState.selectedPlace.key
-        }),
-        selectedPlace: null
-      }
-    })
+    this.props.onDeletePlace()
   }
 
   modalCloseHandler = () => {
-    this.setState({
-      selectedPlace: null
-    })
+    this.props.onDeselectPlace()
   }
 
 
@@ -57,7 +40,7 @@ class App extends Component{
         <PlaceDetail
           modalClosed = {this.modalCloseHandler}
           onDeletedItem = {this.placeDeletedHandler}
-          selectedPlace = {this.state.selectedPlace}
+          selectedPlace = {this.props.selectedPlace}
         />
         <PlaceInput onAddPlace = {this.placeSubmitHandler}/>
         <PlaceList 
@@ -88,7 +71,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddPlace : (name) => dispatch(addPlace(name))
+    onAddPlace : (name) => dispatch(addPlace(name)),
+    onDeletePlace: () => dispatch(deletePlace()),
+    onSelectPlace: (key) => dispatch(selectPlace(key)),
+    onDeselectPlace: () => dispatch(deselectPlace())
   }
 }
 
