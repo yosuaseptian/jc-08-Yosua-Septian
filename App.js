@@ -29,7 +29,9 @@ Navigation.registerComponent(
 
 Navigation.registerComponent(
   'jc8reactnative.PlaceDetailScreen',
-  () => PlaceDetailScreen
+  () => PlaceDetailScreen,
+  store,
+  Provider
 )
 
 
