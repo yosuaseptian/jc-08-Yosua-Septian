@@ -5,12 +5,12 @@ import { connect } from 'react-redux'
 
 import { addPlace } from '../../store/actions/index'
 
-import imageBackground from '../../assets/react-native-wide.png'
-import imageBackgroundWorld from '../../assets/world-map.jpg'
-import DefaultInput from '../../components/UI/DefaultInput/DefaultInput'
 import HeadingText from '../../components/UI/HeadingText/HeadingText'
 import MainText from '../../components/UI/MainText/MainText'
 
+import PlaceInput from '../../components/PlaceInput/PlaceInput'
+import PickLocation from '../../components/PickLocation/PickLocation'
+import PickImage from '../../components/PickImage/PickImage'
 class SharePlaceScreen extends Component {
     constructor(props) {
         super(props)
@@ -35,26 +35,19 @@ class SharePlaceScreen extends Component {
 
     render () {
         return (
-            <ScrollView>
-                <View style={styles.container}>
-                    <MainText>
-                        <HeadingText>Share Place with Us !</HeadingText>
-                    </MainText>
-                    <View style={styles.placeholder}>
-                        <Image source={imageBackground} style={styles.previewImage}/>
-                    </View>
-                    <View style={styles.button}>
-                        <Button title='Locate Me'/>
-                    </View>
-                    <View style={styles.placeholder}>
-                        <Image source={imageBackgroundWorld} style={styles.previewImage}/></View>
-                        
-                    <View style={styles.button}>
-                    <DefaultInput placeholder='Place Name'/>
-                        <Button title='Share Place'/>
-                    </View>
-                </View>
-            </ScrollView>
+          <ScrollView>
+            <View style={styles.container}>
+              <MainText>
+                <HeadingText>Share Place with Us !</HeadingText>
+              </MainText>
+
+              <PickImage />
+              <PickLocation />
+              <PlaceInput />
+
+              <Button title="Share Place" />
+            </View>
+          </ScrollView>
         );
     }
 }
