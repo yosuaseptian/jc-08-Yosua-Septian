@@ -12,7 +12,10 @@ import SideDrawerScreen from './src/screens/SideDrawer/SideDrawer'
 const store = configureStore()
 
 // Register Screens
-Navigation.registerComponent("jc8reactnative.AuthScreen", () => AuthScreen)
+Navigation.registerComponent("jc8reactnative.AuthScreen", 
+() => AuthScreen,
+store,
+Provider)
 
 Navigation.registerComponent(
   "jc8reactnative.SharePlaceScreen",
@@ -37,7 +40,9 @@ Navigation.registerComponent(
 
 Navigation.registerComponent(
   'jc8reactnative.SideDrawerScreen',
-  () => SideDrawerScreen
+  () => SideDrawerScreen,
+  store,
+  Provider
 )
 
 
