@@ -50,6 +50,6 @@ Navigation.registerComponent(
 Navigation.startSingleScreenApp({
   screen: {
     screen: 'jc8reactnative.AuthScreen',
-    title: 'Login'
+    title: 'Authentication'
   }
 })

@@ -114,7 +114,7 @@ class SharePlaceScreen extends Component {
             <ScrollView>
                 <View style={styles.container}>
                     <MainText>
-                        <HeadingText>Input Data Kariawan</HeadingText>
+                        <HeadingText>Input Data Karyawan</HeadingText>
                     </MainText>
                     <PlaceInput
                         holder = "Nama"
