@@ -9,9 +9,13 @@ import MainText from '../../components/UI/MainText/MainText'
 import PlaceInput from '../../components/PlaceInput/PlaceInput'
 
 
+
 class SharePlaceScreen extends Component {
     state = {
-        placeName : ''
+        nama : '',
+        usia: '',
+        jabatan: '',
+        error: ''
     }
 
     constructor(props) {
@@ -29,9 +33,21 @@ class SharePlaceScreen extends Component {
         }
     }
 
-    placeNameChangedHandler = (val) => {
+    namaChangedHandler = (val) => {
         this.setState({
-            placeName: val
+            nama: val
+        })
+    }
+
+    usiaChangedHandler = (val) => {
+        this.setState({
+            usia: val
+        })
+    }
+
+    jabatanChangedHandler = (val) => {
+        this.setState({
+            jabatan: val
         })
     }
 
@@ -54,15 +70,42 @@ class SharePlaceScreen extends Component {
     placeAddedHandler = () => {
         
 
-        const places = Fire.database().ref(`users/${this.props.userId}`)
-        if(this.state.placeName.trim() !== ''){
+        const places = Fire.database().ref(`dataKariawan`)
+        if(this.state.nama.trim() === '' || this.state.usia.trim() === '' || this.state.jabatan.trim() === '') {
+            this.setState({error: 'All Column must be filled'})
+            setTimeout(() => {
+                this.setState({error: ''})
+            }, 3000);
+        }else if (!parseInt(this.state.usia)){
+            this.setState({error: 'usia must number'})
+            setTimeout(() => {
+                this.setState({error: ''})
+            }, 3000);
+        }else {
             // input data ke firebase
+            // console.log([this.state.nama, this.state.usia, this.state.jabatan])
             places.push({
-                name: this.state.placeName
+                nama: this.state.nama,
+                usia: this.state.usia,
+                jabatan: this.state.jabatan
             }).then(res => {
                 // ambil semua data di firebase, lempar ke redux
                 places.once('value', this.props.onCreateData, (err)=>{console.log(err)})
+                this.setState({nama:"", usia: "", jabatan: "", error: "Input Success >.<" });
+                setTimeout(() => {
+                  this.setState({error: "" });
+                }, 3000);
             })
+        }
+    }
+
+    errorHandler = () => {
+        if(this.state.error) {
+            return (
+                <Text>{this.state.error}</Text>
+            )
+        }else {
+            return null
         }
     }
 
@@ -71,13 +114,25 @@ class SharePlaceScreen extends Component {
             <ScrollView>
                 <View style={styles.container}>
                     <MainText>
-                        <HeadingText>Share Place with Us !</HeadingText>
+                        <HeadingText>Input Data Kariawan</HeadingText>
                     </MainText>
                     <PlaceInput
-                        placeName = {this.state.placeName}
-                        onChangeText = {this.placeNameChangedHandler}
+                        holder = "Nama"
+                        placeName = {this.state.nama}
+                        onChangeText = {this.namaChangedHandler}
                     />
-                    <Button title='Share Place' onPress={this.placeAddedHandler}/>
+                    <PlaceInput
+                        holder = "Usia"
+                        placeName = {this.state.usia}
+                        onChangeText = {this.usiaChangedHandler}
+                    />
+                    <PlaceInput
+                        holder = "Jabatan" 
+                        placeName = {this.state.jabatan}
+                        onChangeText = {this.jabatanChangedHandler}
+                    />
+                    <Button title='Input' onPress={this.placeAddedHandler}/>
+                    {this.errorHandler()}
                 </View>
             </ScrollView>
         );
@@ -97,7 +152,8 @@ const styles = StyleSheet.create({
         height: 150
     },
     button: {
-        margin: 8
+        margin: 8,
+        marginBottom: 10
     },
     previewImage: {
         width: '100%',

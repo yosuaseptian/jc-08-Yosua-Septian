@@ -25,7 +25,7 @@ class AuthScreen extends Component {
 
     componentDidUpdate(){
         if(this.props.user){
-            var places = Fire.database().ref(`users/${this.props.user}`)
+            var places = Fire.database().ref(`dataKariawan`)
             places.once("value", this.props.onCreateData, err => {
               console.log(err);
             });
@@ -136,6 +136,7 @@ class AuthScreen extends Component {
         return (
             <ImageBackground source={imageBackground} style={styles.backgroundImage}>
                 <KeyboardAvoidingView behavior='padding' style={styles.container}>
+                    <HeadingText>Muhammad Ilham Bakhti</HeadingText>
                     {headingTextControl}
                     <ButtonWithBackground color='#a5b4ef' onTekan={this.switchAuthModeHandler}>
                         Switch to {this.state.authMode === 'login' ? 'Signup' : 'Login'}

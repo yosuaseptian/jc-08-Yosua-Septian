@@ -28,7 +28,7 @@ class FindPlaceScreen extends Component {
         })
         this.props.navigator.push({
             screen: 'jc8reactnative.PlaceDetailScreen',
-            title: selPlace.value,
+            title: selPlace.nama,
             passProps: {
                 selectedPlace: selPlace
             }
