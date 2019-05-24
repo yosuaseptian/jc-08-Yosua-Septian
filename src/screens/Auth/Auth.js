@@ -10,7 +10,7 @@ import { startTabs } from '../MainTabs/startMainTabs'
 import DefaultInput from '../../components/UI/DefaultInput/DefaultInput'
 import HeadingText from '../../components/UI/HeadingText/HeadingText'
 import MainText from '../../components/UI/MainText/MainText'
-import imageBackground from '../../assets/clouds-06_11.jpg'
+import imageBackground from '../../assets/world-map.jpg'
 import ButtonWithBackground from '../../components/UI/ButtonWithBackground/ButtonWithBackground'
 
 
@@ -136,7 +136,7 @@ class AuthScreen extends Component {
         return (
             <ImageBackground source={imageBackground} style={styles.backgroundImage}>
                 <KeyboardAvoidingView behavior='padding' style={styles.container}>
-                    <HeadingText>Muhammad Ilham Bakhti</HeadingText>
+                    <HeadingText>Yosua Septian</HeadingText>
                     {headingTextControl}
                     <ButtonWithBackground color='#a5b4ef' onTekan={this.switchAuthModeHandler}>
                         Switch to {this.state.authMode === 'login' ? 'Signup' : 'Login'}

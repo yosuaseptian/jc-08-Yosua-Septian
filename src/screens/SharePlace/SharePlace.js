@@ -8,7 +8,8 @@ import HeadingText from '../../components/UI/HeadingText/HeadingText'
 import MainText from '../../components/UI/MainText/MainText'
 import PlaceInput from '../../components/PlaceInput/PlaceInput'
 
-
+import AgeInput from '../../components/AgeInput/AgeInput'
+import JabatanInput from '../../components/JabatanInput/JabatanInput'
 
 class SharePlaceScreen extends Component {
     state = {
@@ -121,12 +122,12 @@ class SharePlaceScreen extends Component {
                         placeName = {this.state.nama}
                         onChangeText = {this.namaChangedHandler}
                     />
-                    <PlaceInput
+                    <AgeInput
                         holder = "Usia"
                         placeName = {this.state.usia}
                         onChangeText = {this.usiaChangedHandler}
                     />
-                    <PlaceInput
+                    <JabatanInput
                         holder = "Jabatan" 
                         placeName = {this.state.jabatan}
                         onChangeText = {this.jabatanChangedHandler}
